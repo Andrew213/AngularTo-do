@@ -1,0 +1,79 @@
+<main class="app-wrapper">
+  <div class="container">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title><h2>Добавить в список</h2></mat-card-title>
+      </mat-card-header>
+      <mat-card-content style="display: flex; flex-direction: column">
+        <mat-form-field>
+          <mat-label>Название</mat-label>
+          <input style="width: '100%'" matInput [(ngModel)]="todoTitle" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Описание</mat-label>
+          <input matInput [(ngModel)]="todoDescr" />
+        </mat-form-field>
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="addTodo()"
+          style="align-self: flex-start"
+        >
+          Добавить
+        </button>
+      </mat-card-content>
+    </mat-card>
+    <mat-card style="margin-top: 50px">
+      <mat-card-header>
+        <mat-card-title
+          ><h2>
+            Список {{ dataSource.length ? "" : "пустой" }}
+          </h2></mat-card-title
+        >
+      </mat-card-header>
+      @if(dataSource.length){
+      <mat-card-content>
+        <mat-list>
+          @for (item of dataSource; track item.id; ) {
+          <mat-list-item class="listOption">
+            <div style="display: flex; gap: 20px; align-items: center">
+              <div style="font-size: 20px; font-weight: 600">
+                {{ item.title }}
+              </div>
+              <div
+                style="
+                  color: grey;
+                  max-width: 500px;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                "
+              >
+                {{ item.description }}
+              </div>
+              <div style="margin-left: auto">
+                <mat-chip
+                  [highlighted]="item.status === 'OPEN' ? true : false"
+                  [style]="
+                    item.status === 'OPEN'
+                      ? {
+                          'background-color': 'lightblue'
+                        }
+                      : { 'background-color': 'lightgreen' }
+                  "
+                >
+                  {{ item.status }}
+                </mat-chip>
+              </div>
+              <mat-checkbox (change)="onCheckboxChange($event, item)" />
+              <button class="button" (click)="removeTodo(item.id)">
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+          </mat-list-item>
+          }
+        </mat-list>
+      </mat-card-content>
+      }
+    </mat-card>
+  </div>
+</main>

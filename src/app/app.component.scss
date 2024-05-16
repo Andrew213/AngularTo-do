@@ -1,0 +1,13 @@
+.listOption {
+  &:not(:last-child) {
+    border-bottom: 1px solid grey;
+  }
+}
+
+.button {
+  background-color: transparent;
+  border: none;
+  color: red;
+  padding: 0;
+  cursor: pointer;
+}
